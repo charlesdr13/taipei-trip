@@ -53,9 +53,18 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:.95;letter-spaci
 .mast-stub .route p{white-space:normal}
 .fare{margin-top:auto;border:2px solid var(--ink);border-radius:3px;padding:10px 14px 12px}
 .fare p{margin:0}
-/* printed target until punched; punched = a real hole showing the ground */
-.punch{flex:none;width:40px;height:40px;border-radius:50%;background:transparent;border:1.5px solid rgba(29,26,22,.55)}
-.punch.done{background:var(--ground);border-color:transparent}
+/* station souvenir stamps (紀念章): faint until the day is reached, then inked */
+.defs{position:absolute}
+.stamp{flex:none;width:76px;height:76px;color:var(--blue);fill:none;stroke:currentColor;opacity:.28;transform:rotate(var(--r)) scale(1.14);transition:opacity .35s cubic-bezier(.16,1,.3,1),transform .35s cubic-bezier(.16,1,.3,1)}
+.stamp text{font:700 6.4px var(--display);fill:currentColor;stroke:none}
+.stamp.on{width:64px;height:64px;opacity:.9;transform:rotate(var(--r))}
+.mast-main{display:flex;flex-direction:column}
+.skyline{display:block;width:100%;max-width:640px;height:auto;margin-top:auto;padding-top:22px}
+.skyline path,.skyline circle{vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}
+.sk-b path,.sk-b circle{fill:var(--stock);stroke:var(--ink);stroke-width:1.8}
+.sk-h{fill:none;stroke:var(--ink-2);stroke-width:1.5;opacity:.45}
+.sk-l path{fill:var(--amber);stroke:var(--ink);stroke-width:1.5}
+.sk-g{fill:none;stroke:var(--ink);stroke-width:2}
 .stub-label{font:600 13px/1.3 var(--body);text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin:0}
 .price{white-space:nowrap;font:700 clamp(2.4rem,4vw,3.4rem)/1 var(--display);color:var(--red);margin:4px 0}
 .mast-stub p{margin:0;white-space:nowrap}
@@ -127,8 +136,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:.95;letter-spaci
 .dt-fields{display:flex;flex-wrap:wrap;gap:6px 28px;margin:12px 0 0;font:400 17px/1.4 var(--body)}
 .dt-fields b{font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;font-size:13px;margin-right:8px}
 .dt-stub{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px}
-.dt-stub .punch{width:32px;height:32px;transition:background-color .35s cubic-bezier(.16,1,.3,1),border-color .35s cubic-bezier(.16,1,.3,1)}
-.day:target .dt-stub .punch,.day.is-current .dt-stub .punch{background:var(--ground);border-color:transparent}
+.day:target .dt-stub .stamp,.day.is-current .dt-stub .stamp{opacity:.92;transform:rotate(var(--r))}
 .dt-stub .big{font:700 3.4rem/1 var(--display);color:var(--ink)}
 .dt-stub .wk{white-space:nowrap;font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase}
 .day-intro{max-width:70ch;margin:0 0 18px}
@@ -197,7 +205,7 @@ footer{margin:72px 0 0;padding:28px 0 max(48px,env(safe-area-inset-bottom));bord
   body{font-size:16px}
   .wrap{--gut:16px}
   .mast{grid-template-columns:minmax(0,1fr);margin-top:16px}
-  .route .punch{display:none}
+  .route .stamp{display:none}
   .mast-main{border-right:0;border-bottom:2px dashed var(--ink);padding:24px 22px}
   .mast::before,.mast::after{display:none}
   .fields{grid-template-columns:1fr;gap:10px}
@@ -213,6 +221,7 @@ footer{margin:72px 0 0;padding:28px 0 max(48px,env(safe-area-inset-bottom));bord
   .dt-stub .wk{font-size:12px;letter-spacing:.06em}
   .dt-main{padding:18px}
   .dt-stub .big{font-size:2.4rem}
+  .dt-stub .stamp{width:58px;height:58px}
   .board,.board tbody,.board tr,.board td{display:block;width:100%}
   .board thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
   .board tr{border-top:1px solid rgba(29,26,22,.2)}
@@ -268,6 +277,7 @@ html:has(.viewer[open]){overflow:hidden}
 </style>
 </head>
 <body>
+<svg class="defs" width="0" height="0" aria-hidden="true" focusable="false"><defs><symbol id="i-temple" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 13q5 5 10 4h10q5 1 10-4l-2 5 4 5H7l4-5z"/><circle cx="24" cy="12" r="2"/><path d="M14 23v6h20v-6"/><path d="M5 29q6 4 11 3h16q5 1 11-3l-2 4 3 4H4l3-4z"/><path d="M10 37v6h28v-6M17 37v6M31 37v6M21 43v-4h6v4M6 43h36"/></g></symbol><symbol id="i-flower" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 44V25M24 37q-8-1-10-9 8 1 10 9M24 33q7-1 9-8-7 1-9 8"/><path d="M16 8v9q0 8 8 8t8-8V8l-4 4-4-6-4 6z"/></g></symbol><symbol id="i-lantern" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 10q2-5 11-5t11 5l-3 22q-8 3-16 0z"/><path d="M23 5.5V33"/><path d="M15 32l8 4.5 8-4.5"/><path d="M23 44q-3-3 0-6 3 3 0 6"/><path d="M37 6q1-2 4-2t4 2l-1 8q-3 1-6 0z"/></g></symbol><symbol id="i-t101" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 2v6M21 8h6v4h-6zM18 12h12l-1.5 5h-9zM18 17h12l-1.5 5h-9zM18 22h12l-1.5 5h-9zM18 27h12l-1.5 5h-9zM19.5 32h9l3 12h-15zM8 44h32"/></g></symbol><symbol id="i-train" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6h18q5 0 5 5v22q0 4-4 4H14q-4 0-4-4V11q0-5 5-5z"/><path d="M14 12h20v10H14z"/><circle cx="16.5" cy="29.5" r="1.6"/><circle cx="31.5" cy="29.5" r="1.6"/><path d="M15 37l-4 7M33 37l4 7M13 41h22"/></g></symbol><symbol id="i-plane" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 5q2 0 2 4v10l15 9v3l-15-4v9l4 4v2l-6-2-6 2v-2l4-4v-9L7 31v-3l15-9V9q0-4 2-4z"/></g></symbol><filter id="ink" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="2" seed="7" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -3 2.35" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter></defs></svg>
 <a class="skip" href="#day-1">Skip to Day 1</a>
 <div class="wrap">
 
@@ -279,9 +289,10 @@ html:has(.viewer[open]){overflow:hidden}
       <div><dt>Base</dt><dd>Ximending, one hotel, 4 nights</dd></div>
       <div><dt>Travelers</dt><dd>9</dd></div>
     </dl>
+    <svg class="skyline" viewBox="0 0 640 120" aria-hidden="true" focusable="false"><path class="sk-h" d="M0 112C50 92 90 76 130 82S200 100 240 92 300 54 350 60 420 98 470 92 560 50 640 70"/><g class="sk-l"><path d="M236 18q8-3 16 0l-2.5 19q-5.5 2-11 0z"/><path d="M290 40q6-2 12 0l-2 14q-4 1.5-8 0z"/><path d="M362 10q7-2.5 14 0l-2.2 16q-4.8 1.8-9.6 0z"/><path d="M580 26q6-2 12 0l-2 14q-4 1.5-8 0z"/></g><g class="sk-b"><path d="M62 28q12 8 24 6h28q12 2 24-6l-6 8 10 10H58l10-10z"/><circle cx="100" cy="29" r="3"/><path d="M74 46h52v16H74z"/><path d="M34 56q14 8 28 6h76q14 2 28-6l-6 8 10 10H30l10-10z"/><path d="M52 74h96v26H52zM90 80h20v20H90zM66 74v26M134 74v26M40 100h120v12H40z"/><path d="M182 86h34v26h-34zM218 78h26v34h-26zM330 82h40v30h-40zM372 92h30v20h-30zM190 94h6M204 94h6M190 102h6M204 102h6M225 88h12M225 98h12M340 92h20M340 102h20"/><path d="M420 112l10-32h20l10 32z"/><path d="M431 80l-3-7h24l-3 7z"/><path d="M431 73l-3-7h24l-3 7z"/><path d="M431 66l-3-7h24l-3 7z"/><path d="M431 59l-3-7h24l-3 7z"/><path d="M431 52l-3-7h24l-3 7z"/><path d="M431 45l-3-7h24l-3 7z"/><path d="M431 38l-3-7h24l-3 7z"/><path d="M431 31l-3-7h24l-3 7z"/><path d="M434 24h12v-8h-12zM437 16h6v-6h-6z"/><path d="M440 10V2"/><path d="M500 96h140M520 96v16M610 96v16"/><path d="M512 96V87q0-7 8-7h120v16z"/><path d="M524 84h12v6h-12zM542 84h12v6h-12zM560 84h12v6h-12zM578 84h12v6h-12zM596 84h12v6h-12z"/></g><path class="sk-g" d="M0 112h640"/></svg>
   </div>
   <div class="mast-stub">
-    <div class="route"><span class="punch done" aria-hidden="true"></span><p><b>5J&nbsp;312</b> MNL&nbsp;T3&nbsp;6:35&nbsp;AM →&nbsp;TPE&nbsp;T1&nbsp;9:00&nbsp;AM<br><b>5J&nbsp;313</b> TPE&nbsp;T1&nbsp;10:20&nbsp;AM →&nbsp;MNL&nbsp;T3&nbsp;1:05&nbsp;PM</p></div>
+    <div class="route"><svg class="stamp on" viewBox="0 0 64 64" style="--r:-7deg" aria-hidden="true" focusable="false"><g filter="url(#ink)"><circle cx="32" cy="32" r="29.5" stroke-width="2.2"/><circle cx="32" cy="32" r="21.5" stroke-width="1"/><path id="ring-0" d="M32 8.5a23.5 23.5 0 1 1-.01 0" fill="none" stroke="none"/><text><textPath href="#ring-0" textLength="146" lengthAdjust="spacing">5J 312 · MANILA → TAIPEI · APR 2027 ·</textPath></text><use href="#i-plane" x="15" y="15" width="34" height="34"/></g></svg><p><b>5J&nbsp;312</b> MNL&nbsp;T3&nbsp;6:35&nbsp;AM →&nbsp;TPE&nbsp;T1&nbsp;9:00&nbsp;AM<br><b>5J&nbsp;313</b> TPE&nbsp;T1&nbsp;10:20&nbsp;AM →&nbsp;MNL&nbsp;T3&nbsp;1:05&nbsp;PM</p></div>
     <p class="stub-label">Flights already booked</p>
     <div class="fare">
       <p class="stub-label">Cost per person, all-in</p>
@@ -311,7 +322,7 @@ html:has(.viewer[open]){overflow:hidden}
       <h2 id="d1"><span class="dn">Day 1</span> Arrive, old Taipei, Ningxia</h2>
       <p class="dt-fields"><span><b>Date</b>Sat Apr 24</span><span><b>Effort</b>Easy</span></p>
     </div>
-    <div class="dt-stub" aria-hidden="true"><span class="punch"></span><span class="big">24</span><span class="wk">Sat · Apr</span></div>
+    <div class="dt-stub" aria-hidden="true"><svg class="stamp" viewBox="0 0 64 64" style="--r:-8deg" aria-hidden="true" focusable="false"><g filter="url(#ink)"><circle cx="32" cy="32" r="29.5" stroke-width="2.2"/><circle cx="32" cy="32" r="21.5" stroke-width="1"/><path id="ring-1" d="M32 8.5a23.5 23.5 0 1 1-.01 0" fill="none" stroke="none"/><text><textPath href="#ring-1" textLength="146" lengthAdjust="spacing">LONGSHAN TEMPLE · WANHUA · TAIPEI ·</textPath></text><use href="#i-temple" x="15" y="15" width="34" height="34"/></g></svg><span class="big">24</span><span class="wk">Sat · Apr</span></div>
   </header>
   <table class="board">
     <caption class="sr">Day 1 schedule</caption>
@@ -343,7 +354,7 @@ html:has(.viewer[open]){overflow:hidden}
       <h2 id="d2"><span class="dn">Day 2</span> Meteor Garden tour: Zhongshe flowers and the F4 campus</h2>
       <p class="dt-fields"><span><b>Date</b>Sun Apr 25</span><span><b>Effort</b>Long (12 hours, mostly sitting)</span></p>
     </div>
-    <div class="dt-stub" aria-hidden="true"><span class="punch"></span><span class="big">25</span><span class="wk">Sun · Apr</span></div>
+    <div class="dt-stub" aria-hidden="true"><svg class="stamp" viewBox="0 0 64 64" style="--r:6deg" aria-hidden="true" focusable="false"><g filter="url(#ink)"><circle cx="32" cy="32" r="29.5" stroke-width="2.2"/><circle cx="32" cy="32" r="21.5" stroke-width="1"/><path id="ring-2" d="M32 8.5a23.5 23.5 0 1 1-.01 0" fill="none" stroke="none"/><text><textPath href="#ring-2" textLength="146" lengthAdjust="spacing">ZHONGSHE FLOWER MARKET · HOULI ·</textPath></text><use href="#i-flower" x="15" y="15" width="34" height="34"/></g></svg><span class="big">25</span><span class="wk">Sun · Apr</span></div>
   </header>
   <div class="prose">
     <p><strong>Book on Klook:</strong> <a href="https://www.klook.com/en-US/activity/21023-meteor-garden-sightseeing-tour-chiayi-taipei/">"Chiayi One-Day Tour: Iconic Meteor Garden Scenes (from Taipei)"</a> (4.9★ from 862 reviews). It's one coach all day, so there are no changes and no buses to find. Times with ~ are my estimates; follow the times on your voucher.</p>
@@ -378,7 +389,7 @@ html:has(.viewer[open]){overflow:hidden}
       <h2 id="d3"><span class="dn">Day 3</span> North Coast tour: Yehliu, Shifen, Jiufen</h2>
       <p class="dt-fields"><span><b>Date</b>Mon Apr 26</span><span><b>Effort</b>Hardest (stairs)</span></p>
     </div>
-    <div class="dt-stub" aria-hidden="true"><span class="punch"></span><span class="big">26</span><span class="wk">Mon · Apr</span></div>
+    <div class="dt-stub" aria-hidden="true"><svg class="stamp" viewBox="0 0 64 64" style="--r:-4deg" aria-hidden="true" focusable="false"><g filter="url(#ink)"><circle cx="32" cy="32" r="29.5" stroke-width="2.2"/><circle cx="32" cy="32" r="21.5" stroke-width="1"/><path id="ring-3" d="M32 8.5a23.5 23.5 0 1 1-.01 0" fill="none" stroke="none"/><text><textPath href="#ring-3" textLength="146" lengthAdjust="spacing">SKY LANTERNS · SHIFEN · NEW TAIPEI ·</textPath></text><use href="#i-lantern" x="15" y="15" width="34" height="34"/></g></svg><span class="big">26</span><span class="wk">Mon · Apr</span></div>
   </header>
   <div class="day-intro">
     <p><strong>Book on Klook.</strong></p>
@@ -428,7 +439,7 @@ html:has(.viewer[open]){overflow:hidden}
       <h2 id="d4"><span class="dn">Day 4</span> City classics, Taipei 101, Raohe, pasalubong</h2>
       <p class="dt-fields"><span><b>Date</b>Tue Apr 27</span><span><b>Effort</b>Medium</span></p>
     </div>
-    <div class="dt-stub" aria-hidden="true"><span class="punch"></span><span class="big">27</span><span class="wk">Tue · Apr</span></div>
+    <div class="dt-stub" aria-hidden="true"><svg class="stamp" viewBox="0 0 64 64" style="--r:9deg" aria-hidden="true" focusable="false"><g filter="url(#ink)"><circle cx="32" cy="32" r="29.5" stroke-width="2.2"/><circle cx="32" cy="32" r="21.5" stroke-width="1"/><path id="ring-4" d="M32 8.5a23.5 23.5 0 1 1-.01 0" fill="none" stroke="none"/><text><textPath href="#ring-4" textLength="146" lengthAdjust="spacing">TAIPEI 101 · XINYI · TAIPEI CITY ·</textPath></text><use href="#i-t101" x="15" y="15" width="34" height="34"/></g></svg><span class="big">27</span><span class="wk">Tue · Apr</span></div>
   </header>
   <table class="board">
     <caption class="sr">Day 4 schedule</caption>
@@ -458,7 +469,7 @@ html:has(.viewer[open]){overflow:hidden}
       <h2 id="d5"><span class="dn">Day 5</span> Fly home</h2>
       <p class="dt-fields"><span><b>Date</b>Wed Apr 28</span><span><b>Effort</b>Early start</span></p>
     </div>
-    <div class="dt-stub" aria-hidden="true"><span class="punch"></span><span class="big">28</span><span class="wk">Wed · Apr</span></div>
+    <div class="dt-stub" aria-hidden="true"><svg class="stamp" viewBox="0 0 64 64" style="--r:-6deg" aria-hidden="true" focusable="false"><g filter="url(#ink)"><circle cx="32" cy="32" r="29.5" stroke-width="2.2"/><circle cx="32" cy="32" r="21.5" stroke-width="1"/><path id="ring-5" d="M32 8.5a23.5 23.5 0 1 1-.01 0" fill="none" stroke="none"/><text><textPath href="#ring-5" textLength="146" lengthAdjust="spacing">AIRPORT MRT · TAOYUAN · HOME ·</textPath></text><use href="#i-train" x="15" y="15" width="34" height="34"/></g></svg><span class="big">28</span><span class="wk">Wed · Apr</span></div>
   </header>
   <table class="board">
     <caption class="sr">Day 5 schedule</caption>
