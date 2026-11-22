@@ -137,6 +137,8 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:.95;letter-spaci
 .dt-fields b{font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;font-size:13px;margin-right:8px}
 .dt-stub{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px}
 .day:target .dt-stub .stamp,.day.is-current .dt-stub .stamp{opacity:.92;transform:rotate(var(--r))}
+.dt-stub .stamp text{visibility:hidden}
+.day:target .dt-stub .stamp text,.day.is-current .dt-stub .stamp text{visibility:visible}
 .dt-stub .big{font:700 3.4rem/1 var(--display);color:var(--ink)}
 .dt-stub .wk{white-space:nowrap;font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase}
 .day-intro{max-width:70ch;margin:0 0 18px}
